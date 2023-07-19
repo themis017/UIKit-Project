@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+enum FriendshipRelation {
+    case friends
+    case pending
+    case notFriends
+}
