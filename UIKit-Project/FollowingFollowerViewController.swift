@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FollowingFollowerViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UISearchBarDelegate, MyCellDelegate {
+class FollowingFollowerViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UISearchBarDelegate, MyCellDelegate, SegmentedControlDelegate {
     
     private var collectionItems: [UserResult] = [
         UserResult(image: UIImage(named: "default.avatar")!, name: "Full name 1", username: "user_1", friendshipRelation: .friends),
@@ -32,15 +32,32 @@ class FollowingFollowerViewController: UIViewController, UICollectionViewDelegat
         UserResult(image: UIImage(named: "default.avatar")!, name: "Full name 20", username: "user_20", friendshipRelation: .pending)
     ]
     
-    private var collectionView: UICollectionView?
-    
-    private var searchBar: UISearchController = {
-            let sb = UISearchController()
-            sb.searchBar.placeholder = "Type for search..."
-            sb.searchBar.searchBarStyle = .minimal
+    lazy var segmentedButtonsView: SegmentedButtonsView = {
         
-            return sb
-        }()
+        let segmentedButtonsView = SegmentedButtonsView()
+        
+        segmentedButtonsView.setLabelsTitles(titles: ["Following", "Followers"])
+        segmentedButtonsView.translatesAutoresizingMaskIntoConstraints = false
+        segmentedButtonsView.backgroundColor = UIColor(red: 247/255, green: 247/255, blue: 247/255, alpha: 1)
+        segmentedButtonsView.layer.borderColor = UIColor(ciColor: .white).cgColor
+        segmentedButtonsView.layer.borderWidth = 0.5
+        
+        return segmentedButtonsView
+        
+    }()
+    
+    lazy var searchBar : UISearchBar = {
+        let s = UISearchBar()
+        s.placeholder = "Search Timeline"
+        s.delegate = self
+        s.tintColor = .white
+        s.barTintColor = .clear
+        s.barStyle = .default
+        s.sizeToFit()
+        return s
+    }()
+    
+    private var collectionView: UICollectionView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,18 +73,91 @@ class FollowingFollowerViewController: UIViewController, UICollectionViewDelegat
         guard let collectionView = collectionView else {
             return
         }
+                
+//        navigationController?.navigationBar.isTranslucent = false
+//        navigationController?.navigationBar.backgroundColor = .white
+//        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+//        navigationController?.navigationBar.barStyle = .black
+//        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
+//        //        navigationController?.navigationBar.barTintColor = UIColor.red
+//        //        navigationController?.navigationBar.shadowImage = UIImage()
+//
+//        title = "User";
         
-        searchBar.searchResultsUpdater = self
-        navigationItem.searchController = searchBar
+        let myView = UIView()
+        myView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(myView)
+        myView.backgroundColor = .white
+        
+        NSLayoutConstraint.activate([
+            myView.topAnchor.constraint(equalTo: view.topAnchor),
+            myView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            myView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            myView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        
+        let label = UILabel()
+        label.textAlignment = .center
+        label.text = "Username"
+        label.translatesAutoresizingMaskIntoConstraints = false
+                
+        self.view.addSubview(label)
+        
+        NSLayoutConstraint.activate([
+            label.topAnchor.constraint(equalTo: view.topAnchor, constant: 60),
+            label.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            label.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            label.widthAnchor.constraint(equalToConstant: view.frame.width),
+            label.heightAnchor.constraint(equalToConstant: 16)
+        ])
+        
+        
+        let searchBar = UISearchBar()
+        searchBar.placeholder = "Search"
+        searchBar.barStyle = .default
+        //            searchBar.isTranslucent = false
+        searchBar.barTintColor = UIColor.white
+        searchBar.backgroundImage = UIImage()
+        
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(searchBar)
+
+        NSLayoutConstraint.activate([
+            searchBar.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 16),
+            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            searchBar.widthAnchor.constraint(equalToConstant: view.frame.width),
+            searchBar.heightAnchor.constraint(equalToConstant: 50)
+        ])
+
+        segmentedButtonsView.segmentedControlDelegate = self
+        segmentedButtonsView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(segmentedButtonsView)
+        
+        NSLayoutConstraint.activate([
+            segmentedButtonsView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 8),
+            segmentedButtonsView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            segmentedButtonsView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+
         collectionView.register(UIUserResultCollectionViewCell.self,
                                 forCellWithReuseIdentifier: UIUserResultCollectionViewCell.identifier)
+        
         collectionView.dataSource = self
         collectionView.delegate = self
         
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+
         view.addSubview(collectionView)
-        view.backgroundColor = .systemGray
-        collectionView.frame = view.bounds
         
+        NSLayoutConstraint.activate([
+            collectionView.topAnchor.constraint(equalTo: segmentedButtonsView.bottomAnchor, constant: 8),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            collectionView.widthAnchor.constraint(equalToConstant: view.frame.width),
+            collectionView.heightAnchor.constraint(equalToConstant: view.frame.height)
+        ])
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -135,5 +225,9 @@ class FollowingFollowerViewController: UIViewController, UICollectionViewDelegat
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
+    }
+    
+    func didIndexChanged(at index: Int) {
+        
     }
 }
