@@ -8,30 +8,7 @@
 import UIKit
 
 class FollowingFollowerViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UISearchBarDelegate, MyCellDelegate, SegmentedControlDelegate {
-    
-    private var collectionItems: [UserResult] = [
-        UserResult(image: UIImage(named: "default.avatar")!, name: "Full name 1", username: "user_1", friendshipRelation: .friends),
-        UserResult(image: UIImage(named: "default.avatar")!, name: "Full name 2", username: "user_2", friendshipRelation: .pending),
-        UserResult(image: UIImage(named: "default.avatar")!, name: "Full name 3", username: "user_3", friendshipRelation: .notFriends),
-        UserResult(image: UIImage(named: "default.avatar")!, name: "Full name 4", username: "user_4", friendshipRelation: .friends),
-        UserResult(image: UIImage(named: "default.avatar")!, name: "Full name 5", username: "user_5", friendshipRelation: .pending),
-        UserResult(image: UIImage(named: "default.avatar")!, name: "Full name 6", username: "user_6", friendshipRelation: .notFriends),
-        UserResult(image: UIImage(named: "default.avatar")!, name: "Full name 7", username: "user_7", friendshipRelation: .friends),
-        UserResult(image: UIImage(named: "default.avatar")!, name: "Full name 8", username: "user_8", friendshipRelation: .pending),
-        UserResult(image: UIImage(named: "default.avatar")!, name: "Full name 9", username: "user_9", friendshipRelation: .notFriends),
-        UserResult(image: UIImage(named: "default.avatar")!, name: "Full name 10", username: "user_10", friendshipRelation: .friends),
-        UserResult(image: UIImage(named: "default.avatar")!, name: "Full name 11", username: "user_11", friendshipRelation: .pending),
-        UserResult(image: UIImage(named: "default.avatar")!, name: "Full name 12", username: "user_12", friendshipRelation: .notFriends),
-        UserResult(image: UIImage(named: "default.avatar")!, name: "Full name 13", username: "user_13", friendshipRelation: .friends),
-        UserResult(image: UIImage(named: "default.avatar")!, name: "Full name 14", username: "user_14", friendshipRelation: .pending),
-        UserResult(image: UIImage(named: "default.avatar")!, name: "Full name 15", username: "user_15", friendshipRelation: .notFriends),
-        UserResult(image: UIImage(named: "default.avatar")!, name: "Full name 16", username: "user_16", friendshipRelation: .friends),
-        UserResult(image: UIImage(named: "default.avatar")!, name: "Full name 17", username: "user_17", friendshipRelation: .pending),
-        UserResult(image: UIImage(named: "default.avatar")!, name: "Full name 18", username: "user_18", friendshipRelation: .notFriends),
-        UserResult(image: UIImage(named: "default.avatar")!, name: "Full name 19", username: "user_19", friendshipRelation: .friends),
-        UserResult(image: UIImage(named: "default.avatar")!, name: "Full name 20", username: "user_20", friendshipRelation: .pending)
-    ]
-    
+        
     lazy var segmentedButtonsView: SegmentedButtonsView = {
         
         let segmentedButtonsView = SegmentedButtonsView()
@@ -168,7 +145,7 @@ class FollowingFollowerViewController: UIViewController, UICollectionViewDelegat
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: UIUserResultCollectionViewCell.identifier,
                                                       for: indexPath) as! UIUserResultCollectionViewCell
         
-        cell.configure(with: collectionItems[indexPath.row])
+        cell.configure(with: UserResult.followingsResults[indexPath.row])
         cell.delegate = self
         return cell
     }
@@ -196,18 +173,18 @@ class FollowingFollowerViewController: UIViewController, UICollectionViewDelegat
             
             print("OK button tapped")
             
-            switch self.collectionItems[indexPath.row].friendshipRelation {
+            switch UserResult.followingsResults[indexPath.row].friendshipRelation {
             case .friends:
                 cell.changedFriendshipRelation(to: .notFriends)
                 
                 if let indexPath = self.collectionView?.indexPath(for: cell) {
-                    self.collectionItems[indexPath.row].friendshipRelation = .notFriends
+                    UserResult.followingsResults[indexPath.row].friendshipRelation = .notFriends
                 }
             case .notFriends:
                 cell.changedFriendshipRelation(to: .friends)
                 
                 if let indexPath = self.collectionView?.indexPath(for: cell) {
-                    self.collectionItems[indexPath.row].friendshipRelation = .friends
+                    UserResult.followingsResults[indexPath.row].friendshipRelation = .friends
                 }
             default:
                 break
