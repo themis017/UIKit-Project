@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4173A55A2A686FBC00B7CFC6 /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4173A5592A686FBC00B7CFC6 /* CustomSegmentedControl.swift */; };
+		4173A55A2A686FBC00B7CFC6 /* SegmentedButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4173A5592A686FBC00B7CFC6 /* SegmentedButtonsView.swift */; };
 		4194190B2A685DCF00A752AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194190A2A685DCF00A752AB /* AppDelegate.swift */; };
 		4194190D2A685DCF00A752AB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194190C2A685DCF00A752AB /* SceneDelegate.swift */; };
 		419419142A685DD000A752AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 419419132A685DD000A752AB /* Assets.xcassets */; };
@@ -20,7 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4173A5592A686FBC00B7CFC6 /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
+		4173A5592A686FBC00B7CFC6 /* SegmentedButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedButtonsView.swift; sourceTree = "<group>"; };
 		419419072A685DCF00A752AB /* UIKit-Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "UIKit-Project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4194190A2A685DCF00A752AB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4194190C2A685DCF00A752AB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -66,7 +66,7 @@
 		419419092A685DCF00A752AB /* UIKit-Project */ = {
 			isa = PBXGroup;
 			children = (
-				4173A5592A686FBC00B7CFC6 /* CustomSegmentedControl.swift */,
+				4173A5592A686FBC00B7CFC6 /* SegmentedButtonsView.swift */,
 				419419262A685FDA00A752AB /* UserResultCollectionViewCell.swift */,
 				419419282A6860C200A752AB /* FollowingFollowerViewController.swift */,
 				4194190A2A685DCF00A752AB /* AppDelegate.swift */,
@@ -172,7 +172,7 @@
 				419419202A685F4D00A752AB /* Extensions.swift in Sources */,
 				419419252A685FBC00A752AB /* UserResult.swift in Sources */,
 				4194190D2A685DCF00A752AB /* SceneDelegate.swift in Sources */,
-				4173A55A2A686FBC00B7CFC6 /* CustomSegmentedControl.swift in Sources */,
+				4173A55A2A686FBC00B7CFC6 /* SegmentedButtonsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
