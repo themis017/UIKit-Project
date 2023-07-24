@@ -70,8 +70,8 @@ class FollowingFollowerViewController: UIViewController {
         view.addSubview(segmentedButtonsView)
         segmentedButtonsView.segmentedControlDelegate = self
         
-        collectionView.register(UIUserResultCollectionViewCell.self,
-                                forCellWithReuseIdentifier: UIUserResultCollectionViewCell.identifier)
+        collectionView.register(UserResultCollectionViewCell.self,
+                                forCellWithReuseIdentifier: UserResultCollectionViewCell.identifier)
         
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -114,22 +114,22 @@ class FollowingFollowerViewController: UIViewController {
     }
 }
 
-extension FollowingFollowerViewController: UICollectionViewDelegate, UICollectionViewDataSource, MyCellDelegate {
+extension FollowingFollowerViewController: UICollectionViewDelegate, UICollectionViewDataSource, CellActionDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 20
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: UIUserResultCollectionViewCell.identifier,
-                                                      for: indexPath) as! UIUserResultCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: UserResultCollectionViewCell.identifier,
+                                                      for: indexPath) as! UserResultCollectionViewCell
         
         cell.configure(with: UserResult.followingsResults[indexPath.row])
         cell.delegate = self
         return cell
     }
     
-    func buttonTapped(in cell: UIUserResultCollectionViewCell) {
+    func buttonTapped(in cell: UserResultCollectionViewCell) {
         guard let indexPath = collectionView.indexPath(for: cell) else {
             return
         }

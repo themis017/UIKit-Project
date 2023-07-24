@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		412F21D42A69CEB100E24EEE /* UISearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412F21D32A69CEB100E24EEE /* UISearchView.swift */; };
 		4173A55A2A686FBC00B7CFC6 /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4173A5592A686FBC00B7CFC6 /* CustomSegmentedControl.swift */; };
 		4194190B2A685DCF00A752AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194190A2A685DCF00A752AB /* AppDelegate.swift */; };
 		4194190D2A685DCF00A752AB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194190C2A685DCF00A752AB /* SceneDelegate.swift */; };
@@ -16,12 +15,11 @@
 		419419202A685F4D00A752AB /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4194191F2A685F4D00A752AB /* Extensions.swift */; };
 		419419232A685F8600A752AB /* FriendshipRelation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419419222A685F8600A752AB /* FriendshipRelation.swift */; };
 		419419252A685FBC00A752AB /* UserResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419419242A685FBC00A752AB /* UserResult.swift */; };
-		419419272A685FDA00A752AB /* UIUserResultCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419419262A685FDA00A752AB /* UIUserResultCollectionViewCell.swift */; };
+		419419272A685FDA00A752AB /* UserResultCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419419262A685FDA00A752AB /* UserResultCollectionViewCell.swift */; };
 		419419292A6860C200A752AB /* FollowingFollowerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419419282A6860C200A752AB /* FollowingFollowerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		412F21D32A69CEB100E24EEE /* UISearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISearchView.swift; sourceTree = "<group>"; };
 		4173A5592A686FBC00B7CFC6 /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
 		419419072A685DCF00A752AB /* UIKit-Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "UIKit-Project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4194190A2A685DCF00A752AB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -32,7 +30,7 @@
 		4194191F2A685F4D00A752AB /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		419419222A685F8600A752AB /* FriendshipRelation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendshipRelation.swift; sourceTree = "<group>"; };
 		419419242A685FBC00A752AB /* UserResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserResult.swift; sourceTree = "<group>"; };
-		419419262A685FDA00A752AB /* UIUserResultCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIUserResultCollectionViewCell.swift; sourceTree = "<group>"; };
+		419419262A685FDA00A752AB /* UserResultCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserResultCollectionViewCell.swift; sourceTree = "<group>"; };
 		419419282A6860C200A752AB /* FollowingFollowerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowingFollowerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -69,14 +67,13 @@
 			isa = PBXGroup;
 			children = (
 				4173A5592A686FBC00B7CFC6 /* CustomSegmentedControl.swift */,
-				419419262A685FDA00A752AB /* UIUserResultCollectionViewCell.swift */,
+				419419262A685FDA00A752AB /* UserResultCollectionViewCell.swift */,
 				419419282A6860C200A752AB /* FollowingFollowerViewController.swift */,
 				4194190A2A685DCF00A752AB /* AppDelegate.swift */,
 				4194190C2A685DCF00A752AB /* SceneDelegate.swift */,
 				419419132A685DD000A752AB /* Assets.xcassets */,
 				419419152A685DD000A752AB /* LaunchScreen.storyboard */,
 				419419182A685DD000A752AB /* Info.plist */,
-				412F21D32A69CEB100E24EEE /* UISearchView.swift */,
 			);
 			path = "UIKit-Project";
 			sourceTree = "<group>";
@@ -168,9 +165,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				412F21D42A69CEB100E24EEE /* UISearchView.swift in Sources */,
 				419419292A6860C200A752AB /* FollowingFollowerViewController.swift in Sources */,
-				419419272A685FDA00A752AB /* UIUserResultCollectionViewCell.swift in Sources */,
+				419419272A685FDA00A752AB /* UserResultCollectionViewCell.swift in Sources */,
 				4194190B2A685DCF00A752AB /* AppDelegate.swift in Sources */,
 				419419232A685F8600A752AB /* FriendshipRelation.swift in Sources */,
 				419419202A685F4D00A752AB /* Extensions.swift in Sources */,

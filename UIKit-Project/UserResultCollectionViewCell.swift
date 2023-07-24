@@ -7,15 +7,15 @@
 
 import UIKit
 
-protocol MyCellDelegate: AnyObject {
-    func buttonTapped(in cell: UIUserResultCollectionViewCell)
+protocol CellActionDelegate: AnyObject {
+    func buttonTapped(in cell: UserResultCollectionViewCell)
 }
 
-class UIUserResultCollectionViewCell: UICollectionViewCell {
+class UserResultCollectionViewCell: UICollectionViewCell {
     static let identifier = "CustomCollectionViewCell"
     
     var userResult = UserResult()
-    weak var delegate: MyCellDelegate?
+    weak var delegate: CellActionDelegate?
     
     let profileImage: UIImageView = {
         let imageView = UIImageView()
