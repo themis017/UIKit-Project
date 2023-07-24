@@ -34,9 +34,9 @@ class FollowingFollowerViewController: UIViewController {
                                  height: view.frame.size.height / 20)
         
         return UICollectionView(frame: .zero,
-                                          collectionViewLayout: layout)
+                                collectionViewLayout: layout)
     }()
-        
+    
     lazy var segmentedButtonsView: SegmentedButtonsView = {
         
         let segmentedButtonsView = SegmentedButtonsView()
@@ -50,7 +50,7 @@ class FollowingFollowerViewController: UIViewController {
         return segmentedButtonsView
         
     }()
-        
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configUI()
@@ -89,7 +89,7 @@ class FollowingFollowerViewController: UIViewController {
             usernameTitle.widthAnchor.constraint(equalToConstant: view.frame.width),
             usernameTitle.heightAnchor.constraint(equalToConstant: 16)
         ])
-
+        
         NSLayoutConstraint.activate([
             searchBar.topAnchor.constraint(equalTo: usernameTitle.bottomAnchor, constant: 16),
             searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -135,43 +135,44 @@ extension FollowingFollowerViewController: UICollectionViewDelegate, UICollectio
         }
         
         print("Button tapped in cell at index: \(indexPath.item)")
-            
+        
         let alertController = UIAlertController(title: "Action button info",
                                                 message: "You've tapped action button.",
                                                 preferredStyle: UIAlertController.Style.alert)
         
-        let DestructiveAction = UIAlertAction(title: "Cancel",
-                                              style: UIAlertAction.Style.destructive) {
-            (result : UIAlertAction) -> Void in
-            print("Cancel button tapped")
-        }
-        
-        let okAction = UIAlertAction(title: "OK",
-                                     style: UIAlertAction.Style.default) {
-            (result : UIAlertAction) -> Void in
-            
-            print("OK button tapped")
-            
-            switch UserResult.followingsResults[indexPath.row].friendshipRelation {
-            case .friends:
-                cell.changedFriendshipRelation(to: .notFriends)
+        let cancelAction = UIAlertAction(
+            title: "Cancel",
+            style: UIAlertAction.Style.destructive) { _ in
                 
-                if let indexPath = self.collectionView.indexPath(for: cell) {
-                    UserResult.followingsResults[indexPath.row].friendshipRelation = .notFriends
-                }
-            case .notFriends:
-                cell.changedFriendshipRelation(to: .friends)
-                
-                if let indexPath = self.collectionView.indexPath(for: cell) {
-                    UserResult.followingsResults[indexPath.row].friendshipRelation = .friends
-                }
-            default:
-                break
+                print("Cancel button tapped")
             }
-        }
         
-        alertController.addAction(DestructiveAction)
-        alertController.addAction(okAction)
+        let confirmAction = UIAlertAction(
+            title: "Confirm",
+            style: UIAlertAction.Style.default) { _ in
+                
+                print("Confirm button tapped")
+                
+                switch UserResult.followingsResults[indexPath.row].friendshipRelation {
+                case .friends:
+                    cell.changedFriendshipRelation(to: .notFriends)
+                    
+                    if let indexPath = self.collectionView.indexPath(for: cell) {
+                        UserResult.followingsResults[indexPath.row].friendshipRelation = .notFriends
+                    }
+                case .notFriends:
+                    cell.changedFriendshipRelation(to: .friends)
+                    
+                    if let indexPath = self.collectionView.indexPath(for: cell) {
+                        UserResult.followingsResults[indexPath.row].friendshipRelation = .friends
+                    }
+                default:
+                    break
+                }
+            }
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(confirmAction)
         
         cell.actionButton.showAnimation {
             alertController.show()
