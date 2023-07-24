@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FollowingFollowerViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, MyCellDelegate, SegmentedControlDelegate {
+class FollowingFollowerViewController: UIViewController {
     
     lazy var usernameTitle: UILabel = {
         let usernameTitle = UILabel()
@@ -112,6 +112,9 @@ class FollowingFollowerViewController: UIViewController, UICollectionViewDelegat
             collectionView.heightAnchor.constraint(equalToConstant: view.frame.height)
         ])
     }
+}
+
+extension FollowingFollowerViewController: UICollectionViewDelegate, UICollectionViewDataSource, MyCellDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 20
@@ -174,10 +177,9 @@ class FollowingFollowerViewController: UIViewController, UICollectionViewDelegat
             alertController.show()
         }
     }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+}
 
-    }
+extension FollowingFollowerViewController: SegmentedControlDelegate {
     
     func didIndexChanged(at index: Int) {
         
