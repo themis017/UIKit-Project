@@ -104,8 +104,8 @@ class SegmentedButtonsView: UIView, CollectionViewDidScrollDelegate {
             if lbl == sender.view {
                 let selectorPosition = (frame.width / CGFloat(titles.count)) * CGFloat(labelIndex)
                 selectedIndex = labelIndex
-                //todo set delegate
                 segmentedControlDelegate?.didIndexChanged(at: selectedIndex)
+                
                 UIView.animate(withDuration: 0.1) {
                     self.selectorView.frame.origin.x = selectorPosition
                 }
@@ -153,6 +153,6 @@ extension SegmentedButtonsView {
     }
     
     func didIndexChanged(at index: Int) {
-        
+        print("didIndexChanged")
     }
 }
