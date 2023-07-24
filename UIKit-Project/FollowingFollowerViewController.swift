@@ -7,7 +7,35 @@
 
 import UIKit
 
-class FollowingFollowerViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UISearchBarDelegate, MyCellDelegate, SegmentedControlDelegate {
+class FollowingFollowerViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, MyCellDelegate, SegmentedControlDelegate {
+    
+    lazy var usernameTitle: UILabel = {
+        let usernameTitle = UILabel()
+        usernameTitle.textAlignment = .center
+        usernameTitle.text = "Username"
+        
+        return usernameTitle
+    }()
+    
+    lazy var searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.placeholder = "Search"
+        searchBar.barStyle = .default
+        searchBar.barTintColor = UIColor.white
+        searchBar.backgroundImage = UIImage()
+        
+        return searchBar
+    }()
+    
+    lazy var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.itemSize = CGSize(width: view.frame.size.width / 1.1,
+                                 height: view.frame.size.height / 20)
+        
+        return UICollectionView(frame: .zero,
+                                          collectionViewLayout: layout)
+    }()
         
     lazy var segmentedButtonsView: SegmentedButtonsView = {
         
@@ -22,86 +50,30 @@ class FollowingFollowerViewController: UIViewController, UICollectionViewDelegat
         return segmentedButtonsView
         
     }()
-    
-    lazy var searchBar : UISearchBar = {
-        let s = UISearchBar()
-        s.placeholder = "Search Timeline"
-        s.delegate = self
-        s.tintColor = .white
-        s.barTintColor = .clear
-        s.barStyle = .default
-        s.sizeToFit()
-        return s
-    }()
-    
-    private var collectionView: UICollectionView?
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        layout.itemSize = CGSize(width: view.frame.size.width / 1.1,
-                                 height: view.frame.size.height / 20)
+        view.backgroundColor = .white
         
-        collectionView = UICollectionView(frame: .zero,
-                                          collectionViewLayout: layout)
-        
-        guard let collectionView = collectionView else {
-            return
-        }
+        usernameTitle.translatesAutoresizingMaskIntoConstraints = false
                 
-//        navigationController?.navigationBar.isTranslucent = false
-//        navigationController?.navigationBar.backgroundColor = .white
-//        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-//        navigationController?.navigationBar.barStyle = .black
-//        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
-//        //        navigationController?.navigationBar.barTintColor = UIColor.red
-//        //        navigationController?.navigationBar.shadowImage = UIImage()
-//
-//        title = "User";
-        
-        let myView = UIView()
-        myView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(myView)
-        myView.backgroundColor = .white
+        self.view.addSubview(usernameTitle)
         
         NSLayoutConstraint.activate([
-            myView.topAnchor.constraint(equalTo: view.topAnchor),
-            myView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            myView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            myView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            usernameTitle.topAnchor.constraint(equalTo: view.topAnchor, constant: 60),
+            usernameTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            usernameTitle.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            usernameTitle.widthAnchor.constraint(equalToConstant: view.frame.width),
+            usernameTitle.heightAnchor.constraint(equalToConstant: 16)
         ])
-        
-        let label = UILabel()
-        label.textAlignment = .center
-        label.text = "Username"
-        label.translatesAutoresizingMaskIntoConstraints = false
-                
-        self.view.addSubview(label)
-        
-        NSLayoutConstraint.activate([
-            label.topAnchor.constraint(equalTo: view.topAnchor, constant: 60),
-            label.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            label.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            label.widthAnchor.constraint(equalToConstant: view.frame.width),
-            label.heightAnchor.constraint(equalToConstant: 16)
-        ])
-        
-        
-        let searchBar = UISearchBar()
-        searchBar.placeholder = "Search"
-        searchBar.barStyle = .default
-        //            searchBar.isTranslucent = false
-        searchBar.barTintColor = UIColor.white
-        searchBar.backgroundImage = UIImage()
         
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(searchBar)
 
         NSLayoutConstraint.activate([
-            searchBar.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 16),
+            searchBar.topAnchor.constraint(equalTo: usernameTitle.bottomAnchor, constant: 16),
             searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             searchBar.widthAnchor.constraint(equalToConstant: view.frame.width),
@@ -151,7 +123,7 @@ class FollowingFollowerViewController: UIViewController, UICollectionViewDelegat
     }
     
     func buttonTapped(in cell: UIUserResultCollectionViewCell) {
-        guard let indexPath = collectionView?.indexPath(for: cell) else {
+        guard let indexPath = collectionView.indexPath(for: cell) else {
             return
         }
         
@@ -177,13 +149,13 @@ class FollowingFollowerViewController: UIViewController, UICollectionViewDelegat
             case .friends:
                 cell.changedFriendshipRelation(to: .notFriends)
                 
-                if let indexPath = self.collectionView?.indexPath(for: cell) {
+                if let indexPath = self.collectionView.indexPath(for: cell) {
                     UserResult.followingsResults[indexPath.row].friendshipRelation = .notFriends
                 }
             case .notFriends:
                 cell.changedFriendshipRelation(to: .friends)
                 
-                if let indexPath = self.collectionView?.indexPath(for: cell) {
+                if let indexPath = self.collectionView.indexPath(for: cell) {
                     UserResult.followingsResults[indexPath.row].friendshipRelation = .friends
                 }
             default:
@@ -196,7 +168,6 @@ class FollowingFollowerViewController: UIViewController, UICollectionViewDelegat
         
         cell.actionButton.showAnimation {
             alertController.show()
-            //            self.button.style = self.button.style == .secondary ? .primary : .secondary
         }
     }
     
