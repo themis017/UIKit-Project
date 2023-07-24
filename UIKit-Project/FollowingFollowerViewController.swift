@@ -53,12 +53,34 @@ class FollowingFollowerViewController: UIViewController, UICollectionViewDelegat
         
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        configUI()
+        setupConstraints()
+    }
+    
+    private func configUI() {
         view.backgroundColor = .white
         
         usernameTitle.translatesAutoresizingMaskIntoConstraints = false
-                
         self.view.addSubview(usernameTitle)
+        
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(searchBar)
+        
+        segmentedButtonsView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(segmentedButtonsView)
+        segmentedButtonsView.segmentedControlDelegate = self
+        
+        collectionView.register(UIUserResultCollectionViewCell.self,
+                                forCellWithReuseIdentifier: UIUserResultCollectionViewCell.identifier)
+        
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(collectionView)
+        
+    }
+    
+    private func setupConstraints() {
         
         NSLayoutConstraint.activate([
             usernameTitle.topAnchor.constraint(equalTo: view.topAnchor, constant: 60),
@@ -67,10 +89,6 @@ class FollowingFollowerViewController: UIViewController, UICollectionViewDelegat
             usernameTitle.widthAnchor.constraint(equalToConstant: view.frame.width),
             usernameTitle.heightAnchor.constraint(equalToConstant: 16)
         ])
-        
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
-        
-        view.addSubview(searchBar)
 
         NSLayoutConstraint.activate([
             searchBar.topAnchor.constraint(equalTo: usernameTitle.bottomAnchor, constant: 16),
@@ -79,26 +97,12 @@ class FollowingFollowerViewController: UIViewController, UICollectionViewDelegat
             searchBar.widthAnchor.constraint(equalToConstant: view.frame.width),
             searchBar.heightAnchor.constraint(equalToConstant: 50)
         ])
-
-        segmentedButtonsView.segmentedControlDelegate = self
-        segmentedButtonsView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(segmentedButtonsView)
         
         NSLayoutConstraint.activate([
             segmentedButtonsView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 8),
             segmentedButtonsView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             segmentedButtonsView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
-
-        collectionView.register(UIUserResultCollectionViewCell.self,
-                                forCellWithReuseIdentifier: UIUserResultCollectionViewCell.identifier)
-        
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-
-        view.addSubview(collectionView)
         
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: segmentedButtonsView.bottomAnchor, constant: 8),
