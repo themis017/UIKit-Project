@@ -109,15 +109,7 @@ class UserResultCollectionViewCell: UICollectionViewCell {
         
         changedFriendshipRelation(to: user.friendshipRelation)
     }
-    
-    //    override func prepareForReuse() {
-    //        super.prepareForReuse()
-    //
-    //        profileImage.image = nil
-    //        nameLabel.text = nil
-    //        usernameLabel.text = nil
-    //    }
-    
+
     public func changedFriendshipRelation(to friendshipRelation: FriendshipRelation) {
         switch friendshipRelation {
         case .friends:
