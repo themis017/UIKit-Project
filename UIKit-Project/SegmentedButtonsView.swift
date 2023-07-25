@@ -95,16 +95,20 @@ class SegmentedButtonsView: UIView {
     
     @objc private func labelActionHandler(sender: UITapGestureRecognizer) {
         
-        for (labelIndex, lbl) in labels.enumerated() {
+        for (labelIndex, label) in labels.enumerated() {
             
-            if lbl == sender.view {
+            if label == sender.view {
                 let selectorPosition = (frame.width / CGFloat(titles.count)) * CGFloat(labelIndex)
                 selectedIndex = labelIndex
                 segmentedControlDelegate?.didIndexChanged(at: selectedIndex)
                 
+                label.textColor = selectorTextColor
+                
                 UIView.animate(withDuration: 0.1) {
                     self.selectorView.frame.origin.x = selectorPosition
                 }
+            } else {
+                label.textColor = textColor
             }
         }
     }

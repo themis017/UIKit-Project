@@ -53,6 +53,8 @@ class FollowingFollowerViewController: UIViewController {
     
     private var segmentedButtonIndex = 0
     
+    var swipeGestureRecognizer: UISwipeGestureRecognizer!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configUI()
@@ -74,7 +76,11 @@ class FollowingFollowerViewController: UIViewController {
         
         collectionView.register(UserResultCollectionViewCell.self,
                                 forCellWithReuseIdentifier: UserResultCollectionViewCell.identifier)
-
+        
+        swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeGesture(_:)))
+        swipeGestureRecognizer.direction = .right
+        collectionView.addGestureRecognizer(swipeGestureRecognizer)
+        
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -180,6 +186,18 @@ extension FollowingFollowerViewController: UICollectionViewDelegate, UICollectio
         
         cell.actionButton.showAnimation {
             alertController.show()
+        }
+    }
+    
+    @objc func handleSwipeGesture(_ gestureRecognizer: UISwipeGestureRecognizer) {
+        if gestureRecognizer.direction == .right {
+            segmentedButtonIndex = 0
+            collectionView.reloadData()
+        }
+        
+        if gestureRecognizer.direction == .left {
+            segmentedButtonIndex = 1
+            collectionView.reloadData()
         }
     }
 }
