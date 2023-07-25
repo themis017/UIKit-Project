@@ -51,6 +51,8 @@ class FollowingFollowerViewController: UIViewController {
         
     }()
     
+    private var segmentedButtonIndex = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configUI()
@@ -108,6 +110,7 @@ class FollowingFollowerViewController: UIViewController {
             collectionView.topAnchor.constraint(equalTo: segmentedButtonsView.bottomAnchor, constant: 12),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+//            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 16),
             collectionView.widthAnchor.constraint(equalToConstant: view.frame.width),
             collectionView.heightAnchor.constraint(equalToConstant: view.frame.height)
         ])
@@ -117,14 +120,14 @@ class FollowingFollowerViewController: UIViewController {
 extension FollowingFollowerViewController: UICollectionViewDelegate, UICollectionViewDataSource, CellActionDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 20
+        return segmentedButtonIndex == 0 ? UserResult.followingsResults.count : UserResult.followersResults.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: UserResultCollectionViewCell.identifier,
                                                       for: indexPath) as! UserResultCollectionViewCell
         
-        cell.configure(with: UserResult.followingsResults[indexPath.row])
+        cell.configure(with: segmentedButtonIndex == 0 ? UserResult.followingsResults[indexPath.row] : UserResult.followersResults[indexPath.row])
         cell.delegate = self
         return cell
     }
@@ -183,6 +186,7 @@ extension FollowingFollowerViewController: UICollectionViewDelegate, UICollectio
 extension FollowingFollowerViewController: SegmentedControlDelegate {
     
     func didIndexChanged(at index: Int) {
-        
+        segmentedButtonIndex = index
+        collectionView.reloadData()
     }
 }
