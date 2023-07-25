@@ -77,15 +77,18 @@ class FollowingFollowerViewController: UIViewController {
         collectionView.register(UserResultCollectionViewCell.self,
                                 forCellWithReuseIdentifier: UserResultCollectionViewCell.identifier)
         
-        swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeGesture(_:)))
-        swipeGestureRecognizer.direction = .right
-        collectionView.addGestureRecognizer(swipeGestureRecognizer)
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(swipeLeft(_:)))
+        swipeLeft.direction = UISwipeGestureRecognizer.Direction.left
+        collectionView.addGestureRecognizer(swipeLeft)
+        
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(swipeRight(_:)))
+        swipeRight.direction = UISwipeGestureRecognizer.Direction.right
+        collectionView.addGestureRecognizer(swipeRight)
         
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(collectionView)
-        
     }
     
     private func setupConstraints() {
@@ -189,16 +192,18 @@ extension FollowingFollowerViewController: UICollectionViewDelegate, UICollectio
         }
     }
     
-    @objc func handleSwipeGesture(_ gestureRecognizer: UISwipeGestureRecognizer) {
-        if gestureRecognizer.direction == .right {
-            segmentedButtonIndex = 0
-            collectionView.reloadData()
-        }
+    @objc func swipeLeft(_ gestureRecognizer: UISwipeGestureRecognizer) {
+        segmentedButtonIndex = 1
+        collectionView.reloadData()
         
-        if gestureRecognizer.direction == .left {
-            segmentedButtonIndex = 1
-            collectionView.reloadData()
-        }
+        segmentedButtonsView.didIndexChanged(at: segmentedButtonIndex)
+    }
+    
+    @objc func swipeRight(_ gestureRecognizer: UISwipeGestureRecognizer) {
+        segmentedButtonIndex = 0
+        collectionView.reloadData()
+        
+        segmentedButtonsView.didIndexChanged(at: segmentedButtonIndex)
     }
 }
 

@@ -114,7 +114,23 @@ class SegmentedButtonsView: UIView {
     }
     
     func didIndexChanged(at index: Int) {
-        print("didIndexChanged")
+        if index == 0 {
+            labels[0].textColor = selectorTextColor
+            labels[1].textColor = textColor
+                        
+            UIView.animate(withDuration: 0.1) {
+                self.selectorView.frame.origin.x = 0
+            }
+        } else {
+            labels[0].textColor = textColor
+            labels[1].textColor = selectorTextColor
+            
+            let selectorPosition = frame.width / CGFloat(titles.count)
+            
+            UIView.animate(withDuration: 0.1) {
+                self.selectorView.frame.origin.x = selectorPosition
+            }
+        }
     }
 }
 
