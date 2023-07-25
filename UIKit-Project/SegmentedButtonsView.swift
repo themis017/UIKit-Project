@@ -8,15 +8,11 @@
 import Foundation
 import UIKit
 
-protocol CollectionViewDidScrollDelegate: AnyObject {
-    func collectionViewDidScroll(for x: CGFloat)
-    
-}
 protocol SegmentedControlDelegate: AnyObject{
     func didIndexChanged(at index: Int)
 }
 
-class SegmentedButtonsView: UIView, CollectionViewDidScrollDelegate {
+class SegmentedButtonsView: UIView {
     
     lazy var selectorView = UIView()
     lazy var labels = [UILabel]()
@@ -84,9 +80,9 @@ class SegmentedButtonsView: UIView, CollectionViewDidScrollDelegate {
     
     private func configSelectedTap() {
         let segmentsCount = CGFloat(titles.count)
-        let selectorWidth = self.frame.width / segmentsCount
+        let selectorWidth = UIScreen.main.bounds.width / segmentsCount
         
-        selectorView = UIView(frame: CGRect(x: 0, y: self.frame.height - 0.8, width: selectorWidth, height: 0.5))
+        selectorView = UIView(frame: CGRect(x: 0, y: 30, width: selectorWidth, height: 2))
         selectorView.backgroundColor = .black
         
         addSubview(selectorView)
@@ -112,47 +108,9 @@ class SegmentedButtonsView: UIView, CollectionViewDidScrollDelegate {
             }
         }
     }
-}
-
-extension SegmentedButtonsView {
-    
-    func collectionViewDidScroll(for x: CGFloat) {
-        
-        UIView.animate(withDuration: 0.1) { [self] in
-            self.selectorView.frame.origin.x = x
-            
-            
-            for (_, view) in subviews.enumerated() {
-                
-                
-                if view is UIStackView {
-                    
-                    guard let stack = view as? UIStackView else {
-                        return
-                    }
-                    
-                    
-                    for (_, label) in stack.arrangedSubviews.enumerated() {
-                        
-                        guard let label = label as? UILabel else {
-                            print("Error ")
-                            return
-                        }
-                        
-                        if  (label.frame.width / 2  >= self.selectorView.frame.origin.x && titles[0] == label.text! || label.frame.width / 2  <= self.selectorView.frame.origin.x && titles[1] == label.text! ) {
-                            
-                            label.textColor = selectorTextColor
-                            
-                        } else {
-                            label.textColor = textColor
-                        }
-                    }
-                }
-            }
-        }
-    }
     
     func didIndexChanged(at index: Int) {
         print("didIndexChanged")
     }
 }
+

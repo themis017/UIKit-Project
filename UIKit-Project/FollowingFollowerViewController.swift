@@ -61,7 +61,7 @@ class FollowingFollowerViewController: UIViewController {
         view.backgroundColor = .white
         
         usernameTitle.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(usernameTitle)
+        view.addSubview(usernameTitle)
         
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(searchBar)
@@ -105,7 +105,7 @@ class FollowingFollowerViewController: UIViewController {
         ])
         
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: segmentedButtonsView.bottomAnchor, constant: 8),
+            collectionView.topAnchor.constraint(equalTo: segmentedButtonsView.bottomAnchor, constant: 12),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.widthAnchor.constraint(equalToConstant: view.frame.width),
