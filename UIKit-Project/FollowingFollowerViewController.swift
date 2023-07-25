@@ -127,7 +127,7 @@ class FollowingFollowerViewController: UIViewController {
     }
 }
 
-extension FollowingFollowerViewController: UICollectionViewDelegate, UICollectionViewDataSource, CellActionDelegate {
+extension FollowingFollowerViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return segmentedButtonIndex == 0 ? UserResult.followingsResults.count : UserResult.followersResults.count
@@ -141,9 +141,27 @@ extension FollowingFollowerViewController: UICollectionViewDelegate, UICollectio
         cell.delegate = self
         return cell
     }
+        
+    @objc func swipeLeft(_ gestureRecognizer: UISwipeGestureRecognizer) {
+        segmentedButtonIndex = 1
+        collectionView.reloadData()
+        
+        segmentedButtonsView.didIndexChanged(at: segmentedButtonIndex)
+    }
+    
+    @objc func swipeRight(_ gestureRecognizer: UISwipeGestureRecognizer) {
+        segmentedButtonIndex = 0
+        collectionView.reloadData()
+        
+        segmentedButtonsView.didIndexChanged(at: segmentedButtonIndex)
+    }
+}
+
+extension FollowingFollowerViewController: CellActionDelegate {
     
     func buttonTapped(in cell: UserResultCollectionViewCell) {
-        guard let indexPath = collectionView.indexPath(for: cell) else {
+        guard let indexPath = collectionView.indexPath(for: cell),
+              UserResult.followingsResults[indexPath.row].friendshipRelation != .pending else {
             return
         }
         
@@ -188,20 +206,6 @@ extension FollowingFollowerViewController: UICollectionViewDelegate, UICollectio
         alertController.addAction(confirmAction)
         
         self.present(alertController, animated: true, completion: nil)
-    }
-    
-    @objc func swipeLeft(_ gestureRecognizer: UISwipeGestureRecognizer) {
-        segmentedButtonIndex = 1
-        collectionView.reloadData()
-        
-        segmentedButtonsView.didIndexChanged(at: segmentedButtonIndex)
-    }
-    
-    @objc func swipeRight(_ gestureRecognizer: UISwipeGestureRecognizer) {
-        segmentedButtonIndex = 0
-        collectionView.reloadData()
-        
-        segmentedButtonsView.didIndexChanged(at: segmentedButtonIndex)
     }
 }
 

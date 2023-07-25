@@ -49,23 +49,22 @@ class UserResultCollectionViewCell: UICollectionViewCell {
         return button
     }()
     
-    
     let userInfoStackView: UIStackView = {
-        let sv = UIStackView()
-        sv.axis = NSLayoutConstraint.Axis.vertical
-        sv.alignment = UIStackView.Alignment.leading
-        sv.translatesAutoresizingMaskIntoConstraints = false
+        let stackView = UIStackView()
+        stackView.axis = NSLayoutConstraint.Axis.vertical
+        stackView.alignment = UIStackView.Alignment.leading
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         
-        return sv
+        return stackView
     }()
     
     let horizontalStackView: UIStackView = {
-        let sv = UIStackView()
-        sv.axis = NSLayoutConstraint.Axis.horizontal
-        sv.alignment = UIStackView.Alignment.center
-        sv.translatesAutoresizingMaskIntoConstraints = false
+        let stackView = UIStackView()
+        stackView.axis = NSLayoutConstraint.Axis.horizontal
+        stackView.alignment = UIStackView.Alignment.center
+        stackView.translatesAutoresizingMaskIntoConstraints = false
         
-        return sv
+        return stackView
     }()
     
     override init(frame: CGRect) {
