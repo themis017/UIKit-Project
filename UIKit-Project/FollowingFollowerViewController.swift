@@ -187,9 +187,7 @@ extension FollowingFollowerViewController: UICollectionViewDelegate, UICollectio
         alertController.addAction(cancelAction)
         alertController.addAction(confirmAction)
         
-        cell.actionButton.showAnimation {
-            alertController.show()
-        }
+        self.present(alertController, animated: true, completion: nil)
     }
     
     @objc func swipeLeft(_ gestureRecognizer: UISwipeGestureRecognizer) {
