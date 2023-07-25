@@ -74,7 +74,7 @@ class FollowingFollowerViewController: UIViewController {
         
         collectionView.register(UserResultCollectionViewCell.self,
                                 forCellWithReuseIdentifier: UserResultCollectionViewCell.identifier)
-        
+
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -103,14 +103,15 @@ class FollowingFollowerViewController: UIViewController {
         NSLayoutConstraint.activate([
             segmentedButtonsView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 8),
             segmentedButtonsView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            segmentedButtonsView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            segmentedButtonsView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            segmentedButtonsView.heightAnchor.constraint(equalToConstant: 24)
         ])
         
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: segmentedButtonsView.bottomAnchor, constant: 12),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-//            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 16),
+            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 16),
             collectionView.widthAnchor.constraint(equalToConstant: view.frame.width),
             collectionView.heightAnchor.constraint(equalToConstant: view.frame.height)
         ])
