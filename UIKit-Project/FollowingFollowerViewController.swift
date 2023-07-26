@@ -77,12 +77,12 @@ class FollowingFollowerViewController: UIViewController {
         collectionView.register(UserResultCollectionViewCell.self,
                                 forCellWithReuseIdentifier: UserResultCollectionViewCell.identifier)
         
-        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(swipeLeft(_:)))
-        swipeLeft.direction = UISwipeGestureRecognizer.Direction.left
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(swipeGesture(_:)))
+        swipeLeft.direction = .left
         collectionView.addGestureRecognizer(swipeLeft)
         
-        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(swipeRight(_:)))
-        swipeRight.direction = UISwipeGestureRecognizer.Direction.right
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(swipeGesture(_:)))
+        swipeRight.direction = .right
         collectionView.addGestureRecognizer(swipeRight)
         
         collectionView.dataSource = self
@@ -142,18 +142,18 @@ extension FollowingFollowerViewController: UICollectionViewDelegate, UICollectio
         return cell
     }
         
-    @objc func swipeLeft(_ gestureRecognizer: UISwipeGestureRecognizer) {
-        segmentedButtonIndex = 1
-        collectionView.reloadData()
+    @objc func swipeGesture(_ gestureRecognizer: UISwipeGestureRecognizer) {
+        defer {
+            collectionView.reloadData()
+            segmentedButtonsView.didIndexChanged(at: segmentedButtonIndex)
+        }
         
-        segmentedButtonsView.didIndexChanged(at: segmentedButtonIndex)
-    }
-    
-    @objc func swipeRight(_ gestureRecognizer: UISwipeGestureRecognizer) {
+        guard gestureRecognizer.direction.contains(.right) else {
+            segmentedButtonIndex = 1
+            return
+        }
+        
         segmentedButtonIndex = 0
-        collectionView.reloadData()
-        
-        segmentedButtonsView.didIndexChanged(at: segmentedButtonIndex)
     }
 }
 
