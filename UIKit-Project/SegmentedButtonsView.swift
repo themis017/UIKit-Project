@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol SegmentedControlDelegate: AnyObject{
-    func didIndexChanged(at index: Int)
+    func segmentedButtonIndexChanged(to index: Int)
 }
 
 class SegmentedButtonsView: UIView {
@@ -100,7 +100,7 @@ class SegmentedButtonsView: UIView {
             if label == sender.view {
                 let selectorPosition = (frame.width / CGFloat(titles.count)) * CGFloat(labelIndex)
                 selectedIndex = labelIndex
-                segmentedControlDelegate?.didIndexChanged(at: selectedIndex)
+                segmentedControlDelegate?.segmentedButtonIndexChanged(to: selectedIndex)
                 
                 label.textColor = selectorTextColor
                 
@@ -113,7 +113,7 @@ class SegmentedButtonsView: UIView {
         }
     }
     
-    func didIndexChanged(at index: Int) {
+    func segmentedButtonIndexChanged(to index: Int) {
         if index == 0 {
             labels[0].textColor = selectorTextColor
             labels[1].textColor = textColor

@@ -145,7 +145,7 @@ extension FollowingFollowerViewController: UICollectionViewDelegate, UICollectio
     @objc func swipeGesture(_ gestureRecognizer: UISwipeGestureRecognizer) {
         defer {
             collectionView.reloadData()
-            segmentedButtonsView.didIndexChanged(at: segmentedButtonIndex)
+            segmentedButtonsView.segmentedButtonIndexChanged(to: segmentedButtonIndex)
         }
         
         guard gestureRecognizer.direction.contains(.right) else {
@@ -211,7 +211,7 @@ extension FollowingFollowerViewController: CellActionDelegate {
 
 extension FollowingFollowerViewController: SegmentedControlDelegate {
     
-    func didIndexChanged(at index: Int) {
+    func segmentedButtonIndexChanged(to index: Int) {
         segmentedButtonIndex = index
         collectionView.reloadData()
     }
