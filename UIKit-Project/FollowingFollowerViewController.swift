@@ -165,6 +165,8 @@ extension FollowingFollowerViewController: CellActionDelegate {
             return
         }
         
+        let followResultsList = segmentedButtonIndex == 0 ? UserResult.followingsResults : UserResult.followersResults
+        
         print("Button tapped in cell at index: \(indexPath.item)")
         
         let alertController = UIAlertController(title: "Action button info",
@@ -180,22 +182,30 @@ extension FollowingFollowerViewController: CellActionDelegate {
         
         let confirmAction = UIAlertAction(
             title: "Confirm",
-            style: UIAlertAction.Style.default) { _ in
+            style: UIAlertAction.Style.default) { [weak self] _ in
                 
                 print("Confirm button tapped")
                 
-                switch UserResult.followingsResults[indexPath.row].friendshipRelation {
+                switch followResultsList[indexPath.row].friendshipRelation {
                 case .friends:
                     cell.changedFriendshipRelation(to: .notFriends)
                     
-                    if let indexPath = self.collectionView.indexPath(for: cell) {
-                        UserResult.followingsResults[indexPath.row].friendshipRelation = .notFriends
+                    if let indexPath = self?.collectionView.indexPath(for: cell) {
+                        if self?.segmentedButtonIndex == 0 {
+                            UserResult.followingsResults[indexPath.row].friendshipRelation = .notFriends
+                        } else {
+                            UserResult.followersResults[indexPath.row].friendshipRelation = .notFriends
+                        }
                     }
                 case .notFriends:
                     cell.changedFriendshipRelation(to: .friends)
                     
-                    if let indexPath = self.collectionView.indexPath(for: cell) {
-                        UserResult.followingsResults[indexPath.row].friendshipRelation = .friends
+                    if let indexPath = self?.collectionView.indexPath(for: cell) {
+                        if self?.segmentedButtonIndex == 0 {
+                            UserResult.followingsResults[indexPath.row].friendshipRelation = .friends
+                        } else {
+                            UserResult.followersResults[indexPath.row].friendshipRelation = .friends
+                        }
                     }
                 default:
                     break
